@@ -53,6 +53,16 @@ public class CustomerService {
     }
 
     public List<CustomerResponse> findAllCustomers() {
-        repository.findAll().stream().map(mapper::toResponse).collect(Collectors.toList());
+        return repository.findAll().stream().map(mapper::toResponse).collect(Collectors.toList());
+    }
+    public CustomerResponse findById(String id) {
+        return this.repository.findById(id)
+                .map(mapper::toResponse)
+                .orElseThrow(() -> new CustomException(String.format("No customer found with the provided ID: %s", id)));
+    }
+
+    public boolean existsById(String id) {
+        return this.repository.findById(id)
+                .isPresent();
     }
 }
