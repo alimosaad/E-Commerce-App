@@ -2,11 +2,14 @@ package com.alimosaad.customer.controllers;
 
 
 import com.alimosaad.customer.requests.CustomerRequest;
+import com.alimosaad.customer.requests.CustomerResponse;
 import com.alimosaad.customer.services.CustomerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/customer")
@@ -22,5 +25,9 @@ public class CustomerController {
     public ResponseEntity<?> updateCustomer(@RequestBody @Valid CustomerRequest request){
         customerService.updateCustomer(request);
         return ResponseEntity.accepted().build();
+    }
+    @GetMapping
+    public ResponseEntity<List<CustomerResponse>> findAll(){
+        return ResponseEntity.ok(customerService.findAllCustomers());
     }
 }

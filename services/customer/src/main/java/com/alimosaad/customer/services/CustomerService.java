@@ -5,10 +5,15 @@ import com.alimosaad.customer.entites.CustomerEntity;
 import com.alimosaad.customer.exceptions.CustomException;
 import com.alimosaad.customer.repositories.CustomerRepository;
 import com.alimosaad.customer.requests.CustomerRequest;
+import com.alimosaad.customer.requests.CustomerResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.StringUtils;
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.lang.String.format;
 
@@ -45,5 +50,9 @@ public class CustomerService {
         if (request.address()!=null){
             customer.setAddress(request.address());
         }
+    }
+
+    public List<CustomerResponse> findAllCustomers() {
+        repository.findAll().stream().map(mapper::toResponse).collect(Collectors.toList());
     }
 }
