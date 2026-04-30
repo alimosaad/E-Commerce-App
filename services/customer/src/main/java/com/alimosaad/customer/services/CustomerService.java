@@ -65,4 +65,8 @@ public class CustomerService {
         return this.repository.findById(id)
                 .isPresent();
     }
+
+    public void deleteCustomer(String customerId) {
+        this.repository.deleteById(customerId);
+    }
 }
