@@ -2,14 +2,12 @@ package com.alimosaad.customer.services;
 
 import com.alimosaad.customer.Dto.CustomerMapper;
 import com.alimosaad.customer.entites.CustomerEntity;
-import com.alimosaad.customer.exceptions.CustomException;
+import com.alimosaad.customer.exceptions.CustomerNotFoundException;
 import com.alimosaad.customer.repositories.CustomerRepository;
 import com.alimosaad.customer.requests.CustomerRequest;
 import com.alimosaad.customer.requests.CustomerResponse;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.StringUtils;
-import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,7 +28,7 @@ public class CustomerService {
 
     public void updateCustomer(CustomerRequest request) {
         var customer=repository.findById(request.id())
-                .orElseThrow(()-> new CustomException(
+                .orElseThrow(()-> new CustomerNotFoundException(
                         format("cannot update customer :: No customer found with the provided ID :: %s ",request.id())
                 ));
         mergeCustomer(customer ,request);
@@ -58,7 +56,7 @@ public class CustomerService {
     public CustomerResponse findById(String id) {
         return this.repository.findById(id)
                 .map(mapper::toResponse)
-                .orElseThrow(() -> new CustomException(String.format("No customer found with the provided ID: %s", id)));
+                .orElseThrow(() -> new CustomerNotFoundException(String.format("No customer found with the provided ID: %s", id)));
     }
 
     public boolean existsById(String id) {
