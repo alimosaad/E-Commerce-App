@@ -1,6 +1,5 @@
 package com.alimosaad.product.requests;
 
-import com.alimosaad.product.entities.Category;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
@@ -17,7 +16,7 @@ public record ProductRequest(
          double availableQuantity,
          @Positive(message = "Price should be positive")
          BigDecimal price,
-         @NotNull(message = "Product category is required")
-         Category category
+         @NotNull(message = "Product categoryId is required")
+         Integer categoryId
 ) {
 }

@@ -1,14 +1,16 @@
 package com.alimosaad.product.controller;
 
+import com.alimosaad.product.requests.ProductPurchaseRequest;
+import com.alimosaad.product.requests.ProductPurchaseResponse;
 import com.alimosaad.product.requests.ProductRequest;
+import com.alimosaad.product.requests.ProductResponse;
 import com.alimosaad.product.services.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping
@@ -23,4 +25,22 @@ public class ProductController {
         return ResponseEntity.ok(productService.createProduct(productRequest));
     }
 
+    @PostMapping("/purchase")
+    public ResponseEntity<List<ProductPurchaseResponse>> purchaseProduct(
+            @RequestBody List<ProductPurchaseRequest> request
+    ){
+        return ResponseEntity.ok(productService.purchaseProduct(request));
+    }
+
+    @GetMapping("/{product-id}")
+    public ResponseEntity<ProductResponse> findById(
+            @PathVariable("product-id") Integer productId
+    ){
+        return ResponseEntity.ok(productService.findById(productId));
+    }
+
+    @GetMapping
+    public ResponseEntity <List<ProductResponse>> findAll(){
+        return ResponseEntity.ok(productService.findAll());
+    }
 }
