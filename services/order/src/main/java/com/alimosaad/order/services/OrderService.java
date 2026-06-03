@@ -3,6 +3,8 @@ package com.alimosaad.order.services;
 import com.alimosaad.order.customer.CustomerClient;
 import com.alimosaad.order.dto.OrderMapper;
 import com.alimosaad.order.exceptions.BusinessException;
+import com.alimosaad.order.kafka.OrderConfirmation;
+import com.alimosaad.order.kafka.OrderProducer;
 import com.alimosaad.order.product.ProductClient;
 import com.alimosaad.order.product.PurchaseRequest;
 import com.alimosaad.order.repositories.OrderRepository;
@@ -22,13 +24,14 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
     private final OrderLineService orderLineService;
+    private final OrderProducer orderProducer;
     public Integer createOrder(OrderRequest request) {
         /// 1. check we have our customer or not using --> Openfeign --> create customerClient
         var customer = customerClient.findCustomerById(request.customerId()).orElseThrow(
                 ()->new BusinessException("cannot create order:: No Customer exist")
         );
         /// 2. purchase the product --> product microservice (using RestTemplate) to apply different ways of communications
-        this.productClient.purchaseProduct(request.products());
+        var purchasedProduct=this.productClient.purchaseProduct(request.products());
         /// 3. persist the order(شراء)
         var order=this.orderRepository.save(orderMapper.toOrder(request));
         /// 4. persist the order lines
@@ -45,7 +48,16 @@ public class OrderService {
         //  todo 5. start payment process
 
         /// 6. send the order confirmation --> notification microservice (kafka)
+        orderProducer.sendOrderConfirmation(
+                new OrderConfirmation(
+                        request.reference(),
+                        request.amount(),
+                        request.paymentMethod(),
+                        customer,
+                        purchasedProduct
+                )
+        );
 
-        return null;
+        return order.getId();
     }
 }

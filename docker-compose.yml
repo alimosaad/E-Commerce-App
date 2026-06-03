@@ -9,7 +9,7 @@ services:
     volumes:
       - postgres:/var/lib/postgres/data        --> when restart the data is exist
     ports:
-      - 5432:5432
+      - "5432:5432"
     networks:
       - microservices-net
     restart: unless-stopped
@@ -32,7 +32,7 @@ services:
     container_name: ms_mongo_db
     image: mongo
     ports:
-      - 27017:27017
+      - "27017:27017"
     volumes:
       - mongo:/data
     environment:
@@ -43,7 +43,7 @@ services:
     image: mongo-express
     restart: unless-stopped
     ports:
-      - 8081:8081
+      - "8081:8081"
     environment:
       - ME_CONFIG_MONGODB_ADMINUSERNAME=alimosaad
       - ME_CONFIG_MONGODB_ADMINPASSWORD=alimosaad
@@ -51,12 +51,42 @@ services:
       - ME_CONFIG_MONGODB_SERVER=mongodb
     depends_on:
       - mongodb
+  zookeeper:
+    image: confluentinc/cp-zookeeper
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "22181:2181"
+    networks:
+      - microservices-net
+  kafka:
+    image: confluentinc/cp-kafka:7.4.0
+    container_name: ms_kafka
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://ms_kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+    networks:
+      - microservices-net
+
   mail-dev:
     container_name: ms_mail_dev
     image: maildev/maildev
     ports:
-      - 1080:1080
-      - 1025:1025
+      - "1080:1080"
+      - "1025:1025"
 networks:
   microservices-net:
     driver: bridge
