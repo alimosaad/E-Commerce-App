@@ -10,10 +10,13 @@ import com.alimosaad.order.product.PurchaseRequest;
 import com.alimosaad.order.repositories.OrderRepository;
 import com.alimosaad.order.requests.OrderLineRequest;
 import com.alimosaad.order.requests.OrderRequest;
-import jakarta.validation.Valid;
+import com.alimosaad.order.requests.OrderResponse;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -59,5 +62,16 @@ public class OrderService {
         );
 
         return order.getId();
+    }
+
+    public List<OrderResponse> findAll() {
+        return orderRepository.findAll().stream()
+                .map(orderMapper::fromOrder)
+                .collect(Collectors.toList());
+    }
+
+    public OrderResponse findById(Integer orderId) {
+        return orderRepository.findById(orderId).map(orderMapper::fromOrder)
+                .orElseThrow(()->new EntityNotFoundException(String.format("No order Found with the provided ID: %d",orderId)));
     }
 }
