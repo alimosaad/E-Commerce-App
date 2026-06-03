@@ -3,6 +3,7 @@ package com.alimosaad.order.dto;
 import com.alimosaad.order.entities.Order;
 import com.alimosaad.order.entities.OrderLine;
 import com.alimosaad.order.requests.OrderLineRequest;
+import com.alimosaad.order.requests.OrderLineResponse;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,5 +19,12 @@ public class OrderLineMapper {
                 )
                 .productId(orderLineRequest.productId())
                 .build();
+    }
+
+    public OrderLineResponse toOrderLineResponse(OrderLine orderLine) {
+        return new OrderLineResponse(
+                orderLine.getId(),
+                orderLine.getQuantity()
+        );
     }
 }

@@ -3,8 +3,13 @@ package com.alimosaad.order.services;
 import com.alimosaad.order.dto.OrderLineMapper;
 import com.alimosaad.order.repositories.OrderLineRepository;
 import com.alimosaad.order.requests.OrderLineRequest;
+import com.alimosaad.order.requests.OrderLineResponse;
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -14,5 +19,12 @@ public class OrderLineService {
     public Integer saveOrderLines(OrderLineRequest orderLineRequest) {
         var order =orderLineMapper.toOrderLine(orderLineRequest);
         return orderLineRepository.save(order).getId();
+    }
+
+    public List<OrderLineResponse> findAllByOrderId(Integer orderId) {
+        // todo findByOrderId logic
+        return orderLineRepository.findAllByOrderId(orderId).stream()
+                .map(orderLineMapper::toOrderLineResponse)
+                .collect(Collectors.toList());
     }
 }
