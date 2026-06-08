@@ -5,6 +5,8 @@ import com.alimosaad.order.dto.OrderMapper;
 import com.alimosaad.order.exceptions.BusinessException;
 import com.alimosaad.order.kafka.OrderConfirmation;
 import com.alimosaad.order.kafka.OrderProducer;
+import com.alimosaad.order.payment.PaymentClient;
+import com.alimosaad.order.payment.PaymentRequest;
 import com.alimosaad.order.product.ProductClient;
 import com.alimosaad.order.product.PurchaseRequest;
 import com.alimosaad.order.repositories.OrderRepository;
@@ -28,6 +30,7 @@ public class OrderService {
     private final OrderMapper orderMapper;
     private final OrderLineService orderLineService;
     private final OrderProducer orderProducer;
+    private final PaymentClient paymentClient;
     public Integer createOrder(OrderRequest request) {
         /// 1. check we have our customer or not using --> Openfeign --> create customerClient
         var customer = customerClient.findCustomerById(request.customerId()).orElseThrow(
@@ -49,7 +52,15 @@ public class OrderService {
             );
         }
         //  todo 5. start payment process
+        var paymentRequest=new PaymentRequest(
+                request.amount(),
+                request.paymentMethod(),
+                order.getId(),
+                order.getReference(),
+                customer
 
+        );
+        paymentClient.requestOrderPayment(paymentRequest);
         /// 6. send the order confirmation --> notification microservice (kafka)
         orderProducer.sendOrderConfirmation(
                 new OrderConfirmation(
