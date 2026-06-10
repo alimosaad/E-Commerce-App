@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Confirmation</title>
+</head>
+<body style="margin:0;padding:0;background:#f5f7fa;font-family:Arial,sans-serif;">
+
+<table width="100%" cellpadding="0" cellspacing="0" style="padding:30px;background:#f5f7fa;">
+    <tr>
+        <td align="center">
+
+            <table width="700" cellpadding="0" cellspacing="0"
+                   style="background:white;border-radius:12px;overflow:hidden;">
+
+                <tr>
+                    <td align="center"
+                        style="background:#2563eb;color:white;padding:25px;font-size:28px;font-weight:bold;">
+                        Order Confirmation
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="padding:35px;">
+
+                        <h2 style="margin:0;color:#111827;">
+                            Hi <span th:text="${customerName}"></span> 👋
+                        </h2>
+
+                        <p style="margin-top:15px;color:#6b7280;">
+                            Thank you for your purchase.
+                            Your order has been confirmed and is being processed.
+                        </p>
+
+                        <table width="100%"
+                               style="margin-top:25px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;">
+                            <tr>
+                                <td style="padding:15px;">
+                                    <strong>Order Reference</strong>
+                                </td>
+                                <td align="right"
+                                    style="padding:15px;"
+                                    th:text="${orderReference}">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="padding:15px;">
+                                    <strong>Total Amount</strong>
+                                </td>
+                                <td align="right"
+                                    style="padding:15px;font-size:22px;color:#16a34a;font-weight:bold;">
+                                    $<span th:text="${totalAmount}"></span>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h3 style="margin-top:35px;color:#111827;">
+                            Order Items
+                        </h3>
+
+                        <table width="100%"
+                               cellpadding="10"
+                               cellspacing="0"
+                               style="border-collapse:collapse;">
+
+                            <thead>
+                            <tr style="background:#2563eb;color:white;">
+                                <th align="left">Product</th>
+                                <th align="center">Quantity</th>
+                                <th align="right">Price</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr th:each="product : ${products}">
+                                <td style="border-bottom:1px solid #e5e7eb;"
+                                    th:text="${product.name}">
+                                </td>
+
+                                <td align="center"
+                                    style="border-bottom:1px solid #e5e7eb;"
+                                    th:text="${product.quantity}">
+                                </td>
+
+                                <td align="right"
+                                    style="border-bottom:1px solid #e5e7eb;">
+                                    $<span th:text="${product.price}"></span>
+                                </td>
+                            </tr>
+                            </tbody>
+
+                        </table>
+
+                        <div style="text-align:center;margin-top:40px;">
+                            <a href="#"
+                               style="background:#2563eb;
+                                      color:white;
+                                      text-decoration:none;
+                                      padding:14px 30px;
+                                      border-radius:8px;
+                                      display:inline-block;
+                                      font-weight:bold;">
+                                Track Order
+                            </a>
+                        </div>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="center"
+                        style="padding:25px;color:#9ca3af;font-size:13px;">
+                        © 2026 E-Commerce Store. All rights reserved.
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center"
+                        style="padding-bottom:20px;color:#9ca3af;font-size:13px;">
+                        This is an automated message. Please do not reply to this email.
+                    </td>
+                </tr>
+
+            </table>
+
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
