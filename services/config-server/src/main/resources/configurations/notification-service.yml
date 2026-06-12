@@ -1,33 +1,37 @@
 spring:
-  mongodb:
-    username: alimosaad
-    password: alimosaad
-    host: localhost
-    port: 27017
-    authentication-database: admin
-    database: customer
+  data:
+    mongodb:
+      username: alimosaad
+      password: alimosaad
+      host: localhost
+      port: 27017
+      authentication-database: admin
+      database: customer
   kafka:
     consumer:
       bootstrap-servers: localhost:9092
       group-id: paymentGroup,orderGroup
       auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringSerializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonSerializer
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: '*'
-        spring.json.type.mapping: orderConfirmation:com.alimosaad.order.kafka.OrderConfirmation,paymentConfirmation:com.alimosaad.payment.notification.PaymentNotificationRequest
+        spring.json.type.mapping: orderConfirmation:com.alimosaad.ecommerce.kafka.order.OrderConfirmation,paymentConfirmation:com.alimosaad.ecommerce.kafka.payment.PaymentConfirmation
   mail:
-    host: localhost
-    port: 1025
-    username: alimosaad
-    password: alimosaad
+    host: localhost # smtp.gmail.com for gmail
+    port: 1025 # 587
+    username: alimosaad # add your account here
+    password: alimosaad # add paas here
     properties:
       mail:
-        stamp: "*"
-      auth: true
-      starttls: true
-      connectionTimeOut: 5000
-      timeOut: 3000
-      writeTimeOut: 5000
+        smtp:
+          trust: "*"
+        auth: true
+        starttls:
+          enable: true
+          #required: true
+        connectiontimeout: 5000
+        timeout: 3000
+        writetimeout: 5000
 server:
-  port: 8040
+  port: 8094

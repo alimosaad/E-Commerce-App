@@ -27,6 +27,9 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 @RequiredArgsConstructor
 public class EmailService {
 
+    /**
+     *
+     */
     private final JavaMailSender mailSender;
     private final SpringTemplateEngine templateEngine;
 
@@ -45,7 +48,7 @@ public class EmailService {
                         MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
                         UTF_8.name()
                 );
-        messageHelper.setFrom("alimosaad573@gmail.com");
+        messageHelper.setFrom("alimosaad573@hotmail.com");
 
         final String templateName = PAYMENT_CONFIRMATION.getTemplate();
 

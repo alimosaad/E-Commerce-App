@@ -15,6 +15,7 @@ import com.alimosaad.ecommerce.requests.OrderRequest;
 import com.alimosaad.ecommerce.requests.OrderResponse;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class OrderService {
     /// create customerClient
     private final CustomerClient customerClient;
@@ -62,6 +64,7 @@ public class OrderService {
         );
         paymentClient.requestOrderPayment(paymentRequest);
         /// 6. send the order confirmation --> notification microservice (kafka)
+        log.info("Customer before kafka = {}", customer);
         orderProducer.sendOrderConfirmation(
                 new OrderConfirmation(
                         request.reference(),

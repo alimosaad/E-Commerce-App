@@ -2,14 +2,14 @@ server:
   port: 8888
 spring:
   profiles:
-    active: git # or native to get from local directory
+    active: native #git # or native to get from local directory
   application:
     name: config-server
   cloud:
     config:
       server:
-        git:
-          uri: https://github.com/alimosaad/testGetConfigFromRemoteRepo
-          default-label: master
-        #native:
-         # search-locations: classpath:/configurations
+        #git:
+          #uri: https://github.com/alimosaad/testGetConfigFromRemoteRepo
+          #default-label: master
+        native:
+          search-locations: classpath:/configurations

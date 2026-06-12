@@ -61,9 +61,9 @@ public class NotificationConsumer {
                         .build()
         );
         /// send email
-        var customerName = orderConfirmation.customer().firstName() + " " + orderConfirmation.customer().lastName();
+        var customerName = orderConfirmation.customerResponse().firstName() + " " + orderConfirmation.customerResponse().lastName();
         emailService.sendOrderConfirmationEmail(
-                orderConfirmation.customer().email(),
+                orderConfirmation.customerResponse().email(),
                 customerName,
                 orderConfirmation.totalAmount(),
                 orderConfirmation.orderReference(),
