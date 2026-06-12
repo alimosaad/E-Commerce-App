@@ -308,7 +308,7 @@ Default credentials:
 
 ---
 
-## ▶️Running the Application
+## Running the Application
 
 ### Build All Services
 
