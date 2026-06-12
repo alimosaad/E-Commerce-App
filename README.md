@@ -39,7 +39,7 @@ The E-Commerce App is a distributed microservices architecture designed for scal
 
 ---
 
-## 🏗️Architecture
+## 🏗️ Architecture
 
 ```
 ┌─────────────┐
@@ -80,7 +80,7 @@ The E-Commerce App is a distributed microservices architecture designed for scal
 
 ---
 
-## 🛠️Technology Stack
+## 🛠️ Technology Stack
 
 ### Backend
 - **Java 17+**
