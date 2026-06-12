@@ -63,11 +63,12 @@ The E-Commerce App is a distributed microservices architecture designed for scal
                    │
          ┌─────────┴─────────┐
          │                   │
-    ┌────▼─────┐      ┌─────▼────┐
-    │PostgreSQL │      │  MongoDB  │
-    │(Customer, │      │(Product)  │
-    │Order)     │      │           │
-    └───────────┘      └───────────┘
+    ┌────▼─────┐        ┌─────▼────┐
+    │PostgreSQL │     │   MongoDB    │
+    │(payment , │     │(customer,    │
+    │(product , │     │Notification) │
+    │Order)     │     │              │
+    └───────────┘     └──────────────┘
 
 ┌──────────────────────────────────┐
 │  Service Discovery (Eureka)      │
@@ -112,7 +113,7 @@ The E-Commerce App is a distributed microservices architecture designed for scal
 - Routes requests to appropriate microservices
 - Handles cross-cutting concerns
 
-**Port:** 8888
+**Port:** 8095
 
 ---
 
@@ -127,9 +128,9 @@ Manages customer information and operations.
 - `GET /api/v1/customer/exists/{customer-id}` - Check if customer exists
 - `DELETE /api/v1/customer/{customer-id}` - Delete a customer
 
-**Database:** PostgreSQL
+**Database:** MongoDB
 
-**Port:** 8070
+**Port:** 8090
 
 ---
 
@@ -142,9 +143,9 @@ Handles product catalog management and inventory.
 - `GET /api/v1/product` - List all products
 - `GET /api/v1/product/{product-id}` - Get product by ID
 
-**Database:** MongoDB
+**Database:** PostgreSQL
 
-**Port:** 8050
+**Port:** 8091
 
 **Features:**
 - Product inventory management
@@ -164,7 +165,7 @@ Manages customer orders and order lines.
 
 **Database:** PostgreSQL
 
-**Port:** 8060
+**Port:** 8093
 
 **Features:**
 - Order creation with validation
@@ -182,7 +183,7 @@ Processes payments and sends notifications.
 
 **Database:** PostgreSQL
 
-**Port:** 8080
+**Port:** 8092
 
 **Features:**
 - Payment processing
@@ -211,6 +212,9 @@ Handles email notifications (via Kafka topics).
 - Sends email notifications via Mail Dev
 - Asynchronous notification processing
 
+**Database:** MongoDB
+
+**Port:** 8094
 ---
 
 ## 📁 Project Structure
@@ -218,6 +222,7 @@ Handles email notifications (via Kafka topics).
 ```
 E-Commerce-App/
 ├── services/
+│   ├── config-server/            # Config Server Service
 │   ├── api-gateway/              # API Gateway Service
 │   ├── customer/                 # Customer Management Service
 │   ├── product/                  # Product Management Service
