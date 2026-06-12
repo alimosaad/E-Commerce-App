@@ -285,7 +285,7 @@ docker-compose ps
 
 ---
 
-## 🗄️Database Setup
+## Database Setup
 
 ### PostgreSQL (Customer & Order Data)
 
