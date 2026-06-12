@@ -1,6 +1,6 @@
 # 🛒 E-Commerce App
 
-A modern, scalable microservices-based e-commerce application built with **Spring Boot**, **Spring Cloud**, and **Kafka**. This project demonstrates enterprise-grade architecture patterns for handling product management, customer management, order processing, and payment operations.
+A modern, scalable microservices-based e-commerce application built with **Spring Boot**, **Spring Cloud**, and **Kafka**. This project demonstrates enterprise-grade architecture patterns for handl[...]
 
 ---
 
@@ -24,7 +24,7 @@ A modern, scalable microservices-based e-commerce application built with **Sprin
 
 ## 📌 Project Overview
 
-The E-Commerce App is a distributed microservices architecture designed for scalability, maintainability, and resilience. Each service is independently deployable and handles a specific business domain following the Domain-Driven Design (DDD) principles.
+The E-Commerce App is a distributed microservices architecture designed for scalability, maintainability, and resilience. Each service is independently deployable and handles a specific business d[...]
 
 **Key Highlights:**
 - ✅ Microservices architecture with Spring Boot
@@ -313,41 +313,63 @@ mvn clean install
 
 Start the services in this order to ensure proper initialization:
 
-1. **Discovery Server (Eureka)**
+1. **Config Server** ⚙️
+   ```bash
+   cd services/config-server
+   mvn spring-boot:run
+   ```
+   - Centralized configuration server
+   - Loads configurations from `services/config-server/src/main/resources/configurations/`
+   - Port: 8888
+
+2. **Discovery Server (Eureka)** 🔍
    ```bash
    cd services/discovery-server
    mvn spring-boot:run
    ```
+   - Port: 8761
 
-2. **Customer Service**
+3. **Customer Service** 👥
    ```bash
    cd services/customer
    mvn spring-boot:run
    ```
+   - Port: 8090
 
-3. **Product Service**
+4. **Product Service** 📦
    ```bash
    cd services/product
    mvn spring-boot:run
    ```
+   - Port: 8091
 
-4. **Order Service**
+5. **Order Service** 📋
    ```bash
    cd services/order
    mvn spring-boot:run
    ```
+   - Port: 8093
 
-5. **Payment Service**
+6. **Payment Service** 💳
    ```bash
    cd services/payment
    mvn spring-boot:run
    ```
+   - Port: 8092
 
-6. **API Gateway**
+7. **Notification Service** 📧
+   ```bash
+   cd services/notification-service
+   mvn spring-boot:run
+   ```
+   - Port: 8094
+
+8. **API Gateway** 🚪
    ```bash
    cd services/api-gateway
    mvn spring-boot:run
    ```
+   - Port: 8095
 
 ### Or Use Docker (Optional)
 
