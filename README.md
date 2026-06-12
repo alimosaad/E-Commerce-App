@@ -6,6 +6,8 @@ A modern, scalable microservices-based e-commerce application built with **Sprin
 
 ## 📋 Table of Contents
 
+## Table of Contents
+
 - [Project Overview](#project-overview)
 - [Architecture](#architecture)
 - [Technology Stack](#technology-stack)
@@ -22,7 +24,7 @@ A modern, scalable microservices-based e-commerce application built with **Sprin
 
 ---
 
-## 📌 Project Overview
+## 📌Project Overview
 
 The E-Commerce App is a distributed microservices architecture designed for scalability, maintainability, and resilience. Each service is independently deployable and handles a specific business d[...]
 
@@ -37,7 +39,7 @@ The E-Commerce App is a distributed microservices architecture designed for scal
 
 ---
 
-## 🏗️ Architecture
+## 🏗️Architecture
 
 ```
 ┌─────────────┐
@@ -78,7 +80,7 @@ The E-Commerce App is a distributed microservices architecture designed for scal
 
 ---
 
-## 🛠️ Technology Stack
+## 🛠️Technology Stack
 
 ### Backend
 - **Java 17+**
@@ -106,7 +108,7 @@ The E-Commerce App is a distributed microservices architecture designed for scal
 
 ---
 
-## 🏢 Services
+## 🏢Services
 
 ### 1. **API Gateway** 🚪
 - Entry point for all client requests
@@ -217,7 +219,7 @@ Handles email notifications (via Kafka topics).
 **Port:** 8094
 ---
 
-## 📁 Project Structure
+## 📁Project Structure
 
 ```
 E-Commerce-App/
@@ -236,7 +238,7 @@ E-Commerce-App/
 
 ---
 
-## 📦 Prerequisites
+## 📦Prerequisites
 
 Before running the application, ensure you have the following installed:
 
@@ -247,7 +249,7 @@ Before running the application, ensure you have the following installed:
 
 ---
 
-## 🚀 Getting Started
+## 🚀Getting Started
 
 ### 1. Clone the Repository
 
@@ -283,7 +285,7 @@ docker-compose ps
 
 ---
 
-## 🗄️ Database Setup
+## 🗄️Database Setup
 
 ### PostgreSQL (Customer & Order Data)
 
@@ -306,7 +308,7 @@ Default credentials:
 
 ---
 
-## ▶️ Running the Application
+## ▶️Running the Application
 
 ### Build All Services
 
@@ -388,7 +390,7 @@ docker run -p PORT:PORT ecommerce/service-name
 
 ---
 
-## 📡 API Endpoints
+## 📡API Endpoints
 
 ### Base URL
 ```
@@ -428,7 +430,7 @@ http://localhost:8888/api/v1
 
 ---
 
-## ✨ Key Features
+## ✨Key Features
 
 ### 1. **Microservices Architecture**
 - Independent services with separate databases
@@ -462,7 +464,7 @@ http://localhost:8888/api/v1
 
 ---
 
-## 🔄 Communication Patterns
+## 🔄Communication Patterns
 
 ### Synchronous Communication
 - REST APIs via API Gateway
@@ -487,7 +489,7 @@ http://localhost:8888/api/v1
 
 ---
 
-## 🧪 Testing
+## 🧪Testing
 
 Run unit and integration tests:
 
@@ -497,7 +499,7 @@ mvn test
 
 ---
 
-## 📝 Configuration
+## 📝Configuration
 
 ### application.properties
 Each service has its own configuration. Key properties include:
@@ -512,7 +514,7 @@ eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
 
 ---
 
-## 🐛 Troubleshooting
+## 🐛Troubleshooting
 
 ### Services not registering with Eureka
 - Ensure Discovery Server is running on port 8761
@@ -531,7 +533,7 @@ eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
 
 ---
 
-## 📚 Additional Resources
+## 📚Additional Resources
 
 - [Spring Boot Documentation](https://spring.io/projects/spring-boot)
 - [Spring Cloud Documentation](https://spring.io/projects/spring-cloud)
@@ -541,7 +543,7 @@ eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
 
 ---
 
-## 📄 License
+## 📄License
 
 This project is open source and available under the MIT License.
 
@@ -554,7 +556,7 @@ GitHub: [@alimosaad](https://github.com/alimosaad)
 
 ---
 
-## 🤝 Contributing
+## 🤝Contributing
 
 Contributions are welcome! Please follow these steps:
 
@@ -566,13 +568,13 @@ Contributions are welcome! Please follow these steps:
 
 ---
 
-## 📧 Support
+## 📧Support
 
 For issues, questions, or suggestions, please open an issue on GitHub or contact the maintainer.
 
 ---
 
-## 🎯 Future Enhancements
+## 🎯Future Enhancements
 
 - [ ] API documentation with Swagger/OpenAPI
 - [ ] Unit and integration tests for all services
